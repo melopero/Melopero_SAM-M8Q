@@ -58,7 +58,7 @@ device.get_pvt()
 print("We are in {}".format(device.pvt_data["year"]))
 ```
 
-##### Crafting messages
+###### Crafting messages
 To use the `UBX_PROTOCOL` module it must be imported by typing the following line :
 ```python
 import UBX_PROTOCOL as ubx
