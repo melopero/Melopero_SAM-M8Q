@@ -35,7 +35,28 @@ The module uses the UBX protocol over I2C to comunicate with the device. The NME
 The most used/useful UBX messages are implemented in the module, if someone wants to send other/custom messages to the device they can be easily crafted and parsed through the `UBX_PROTOCOL` module.
 
 ##### Features
-todo: describe briefly the features of the module
+###### Communication
+There are several methods to send and receive messages:
+```python
+#*** SENDING MESSAGES ***
+device.write_message(message)
+
+#*** RECEIVING MESSAGES ***
+device.read_message()
+device.wait_for_message(time_out_s = 1, interval_s = 0.01, msg_cls = None, msg_id = None)
+device.wait_for_acknowledge(msg_cls, msg_id)
+```
+###### PVT
+The results of a navigation solution are stored in a dictionary: `pvt_data`. The dictionary maps strings (the name of the attributes) to their respective values. For example this line returns the longitude :
+`device.pvt_data["longitude"]`. To update the data stored in `pvt_data` the method `device.get_pvt(polling = True, time_out_s = 1)` must be called. This method updates the data and returns the `pvt_data` dictionary, therefore this two codes are equivalent:
+```python
+info = device.get_pvt()
+print("We are in {}!".format(info["year"]))
+```
+```python
+device.get_pvt()
+print("We are in {}".format(device.pvt_data["year"]))
+```
 
 ##### Crafting messages
 To use the `UBX_PROTOCOL` module it must be imported by typing the following line :
@@ -51,7 +72,7 @@ The function returns the message which can be sent with the method : `sensor.wri
 If the lenght and the payload are not specified a polling message (with no payload, used to poll messages and data) is created and returned.
 
 ## Example
-The following example, will write to a file the result of navigation solution every 5 seconds for 25 minutes.
+The following example, will write to a file the coordinates and time of the device every 5 seconds for 25 minutes.
 ```python
 import SAM_M8Q
 import ubx
@@ -75,12 +96,17 @@ for i in range(300):
         info = dev.get_pvt() #returns a dictionary containing the PVT data
         if info is not None:
             with open(log_file_name, 'a') as log_file:
-                for key, value in info.items():
-                    log_file.write(key)
-                    log_file.write(" : ")
-                    log_file.write(str(value))
-                    log_file.write('\n')
-                log_file.flush()
+              log_file.write("[{}/{}/{}] {}h:{}m:{}s".format(info['year'], info['month'], info['day'],
+                                 info['hour'], info['minute'], info['second']))
+              log_file.write('\n')
+              log_file.write("Longitude : ")
+              log_file.write(str(info["longitude"]))
+              log_file.write('\n')
+              log_file.write("Latitude : ")
+              log_file.write(str(info["latitude"]))
+              log_file.write('\n')
+              log_file.write('\n')
+              log_file.flush()
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
