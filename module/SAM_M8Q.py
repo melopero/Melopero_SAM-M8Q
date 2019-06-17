@@ -34,7 +34,7 @@ class SAM_M8Q():
         message = ubx.compose_message(ubx.CFG_CLASS, ubx.CFG_MSG,8,payload)
         self.write_message(message)
         
-    def set_measurement_freq(self, measurement_period_ms = 1000, navigation_rate = 1, timeref = 0):
+    def set_measurement_frequency(self, measurement_period_ms = 1000, navigation_rate = 1, timeref = 0):
         """measurement_period:
             elapsed time between GNSS measurements, which defines the rate, 
             e.g. 100ms => 10Hz, Measurement rate should be greater than or
@@ -84,7 +84,15 @@ class SAM_M8Q():
         return msg
     
     def wait_for_message(self, time_out_s = 1, interval_s = 0.01, msg_cls = None, msg_id = None):
-        """ waits for a message of a given class and id """
+        """ waits for a message of a given class and id.\n
+        time_out_s : 
+            the maximum amount of time to wait for the message to arrive in seconds.
+        interval_s :
+            the interval in seconds between a two readings.
+        msg_cls :
+            the class of the message to wait for.
+        msg_id :
+            the id of the message to wait for."""
         start_time = time.time()
         to_compare = [ubx.SYNC_CHAR_1, ubx.SYNC_CHAR_2]
         if msg_cls:
@@ -196,8 +204,8 @@ class SAM_M8Q():
             self.pvt_data["month"] = month
             self.pvt_data["day"] = day
             self.pvt_data["hour"] = hour
-            self.pvt_data["minutes"] = minutes
-            self.pvt_data["seconds"] = sec
+            self.pvt_data["minute"] = minutes
+            self.pvt_data["second"] = sec
             
             #flags
             self.pvt_data["valid_time"] = valid_time
@@ -243,7 +251,7 @@ if __name__ == '__main__':
     dev.wait_for_acknowledge(ubx.CFG_CLASS, ubx.CFG_PRT)
     dev.set_message_frequency(ubx.NAV_CLASS, ubx.NAV_PVT, 1)
     dev.wait_for_acknowledge(ubx.CFG_CLASS ,ubx.CFG_MSG)
-    dev.set_measurement_freq(500, 1)
+    dev.set_measurement_frequency(500, 1)
     dev.wait_for_acknowledge(ubx.CFG_CLASS, ubx.CFG_RATE)
     
     #test gps per 25 minuti
@@ -256,11 +264,16 @@ if __name__ == '__main__':
             info = dev.get_pvt()
             if info is not None:
                 with open(log_file_name, 'a') as log_file:
-                    for key, value in info.items():
-                        log_file.write(key)
-                        log_file.write(" : ")
-                        log_file.write(str(value))
-                        log_file.write('\n')
+                    log_file.write("[{}/{}/{}] {}h:{}m:{}s".format(info['year'], info['month'], info['day'],
+                                   info['hour'], info['minute'], info['second']))
+                    log_file.write('\n')
+                    log_file.write("Longitude : ")
+                    log_file.write(str(info["longitude"]))
+                    log_file.write('\n')
+                    log_file.write("Latitude : ")
+                    log_file.write(str(info["latitude"]))
+                    log_file.write('\n')
+                    log_file.write('\n')
                     log_file.flush()
         except:
             print("Unexpected error:", sys.exc_info()[0])
