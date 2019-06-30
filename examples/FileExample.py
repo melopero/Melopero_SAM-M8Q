@@ -32,14 +32,14 @@ for i in range(60 * 6):
         #if there is a valid measurement
         if info:
             with open(log_file_name, 'a') as file:
-                file.write("Valid time : {}, Valid date : {}".format(info[mp.VALID_TIME_TAG], info[mp.VALID_DATE_TAG]))
+                file.write("Valid time : {}, Valid date : {}".format(info[gps.VALID_TIME_TAG], info[gps.VALID_DATE_TAG]))
                 file.write("\n")
-                file.write("[{}/{}/{}] {}h:{}m:{}s".format(info[mp.DAY_TAG], info[mp.MONTH_TAG], info[mp.YEAR_TAG],
-                      info[mp.HOUR_TAG], info[mp.MINUTE_TAG], info[mp.SECOND_TAG]))
+                file.write("[{}/{}/{}] {}h:{}m:{}s".format(info[gps.DAY_TAG], info[gps.MONTH_TAG], info[gps.YEAR_TAG],
+                      info[gps.HOUR_TAG], info[gps.MINUTE_TAG], info[gps.SECOND_TAG]))
                 file.write("\n")
-                file.write("GNSS Fix: {}".format())
+                file.write("GNSS Fix: {}".format(info[gps.GNSS_FIX_TAG]))
                 file.write("\n")
-                file.write("Coordinates: {} N {} E".format(info[mp.LATITUDE_TAG], info[mp.LONGITUDE_TAG]))
+                file.write("Coordinates: {} N {} E".format(info[gps.LATITUDE_TAG], info[gps.LONGITUDE_TAG]))
                 file.write("\n")    
                 file.flush()
             
