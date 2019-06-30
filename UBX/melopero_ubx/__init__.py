@@ -2,4 +2,4 @@
 @author: Leonardo La Rocca
 """
 
-import melopero_ubx.UBX_MSG
+from melopero_ubx.UBX_MSG import *
