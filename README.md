@@ -1,5 +1,58 @@
+# Melopero_SAM-M8Q_Arduino_Library
+A library for interfacing the <b>Melopero SAM-M8Q Multi GNSS breakout board</b> with a Raspberry Pi.
+<br> If you were looking for the Arduino library click [HERE](https://github.com/melopero/Melopero_SAM-M8Q_Arduino_Library)
+
 # Melopero SAM M8Q
-![melopero logo](images/sensor.jpg?raw=true)
+![melopero logo](images/Melopero-SAM-M8Q-diagonal.jpg?raw=true)
+
+# Pinouts
+
+<table style="width:100%">
+  <tr>
+    <th>Melopero SAM-M8Q</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>3V3</td>
+    <td>Input power pin. Apply 3.3V to this pin</td>
+  </tr>
+  <tr>
+    <td>SCL</td>
+    <td>I2C Serial CLock pin</td>
+  </tr>
+  <tr>
+    <td>SDA</td>
+    <td>I2C Serial DAta pin</td>
+  </tr>
+  <tr>
+    <td>GND</td>
+    <td>Ground pin</td>
+  </tr>
+  <tr>
+    <td>INT</td>
+    <td>External Interrupt pin (INPUT)</td>
+  </tr>
+  <tr>
+    <td>SAF</td>
+    <td>SAFEBOOT_N pin, for future service, updates and reconfiguration </td>
+  </tr>
+  <tr>
+    <td>RST</td>
+    <td>RESET pin, INPUT, Active Low</td>
+  </tr>
+  <tr>
+    <td>PPS</td>
+    <td>Pulse Per Second pin, OUTPUT, connected to the Blue LED</td>
+  </tr>
+  <tr>
+    <td>VBA</td>
+    <td>V_BACKUP pin, INPUT. This pin accepts a voltage in the 3.3V-6V range. By applying a voltage to this pin, you will automatically disable the coin cell battery and avoid the installation of the optional CR1220 battery holder, while still allowing a warm start of the GNSS module.
+      </td>
+  </tr> 
+</table>
+
+# FTDI header
+At the top of the board you'll find the pinout for connecting a FTDI cable (<b>only FTDI cables with 3.3V data and power line!</b>)
 
 ## Getting Started
 ### Prerequisites
@@ -112,3 +165,4 @@ for i in range(300):
 
     time.sleep(5)
 ```
+![Connection with a Raspberry Pi](/images/Melopero-SAM-M8Q-with-Raspberry-Pi-4-B.jpg)
