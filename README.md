@@ -60,6 +60,33 @@ You will need:
 - a python3 version, which you can get here: [download python3](https://www.python.org/downloads/)
 - the SAM M8Q gps: [buy here](https://www.melopero.com/shop/)
 
+### Connect the sensor to the Raspberry Pi
+You can find a description of the GPIO connector of the Raspberry Pi [HERE](https://www.raspberrypi.org/documentation/usage/gpio/)
+<br>(use <b>only 3.3V power and logic</b>, DO NOT connect this sensor board directly to 5V)
+<br>The SAM-M8Q communicates over I2C:
+<table style="width:100%">
+  <tr>
+    <th>Melopero SAM-M8Q</th>
+    <th>Raspberry Pi</th> 
+  </tr>
+  <tr>
+    <td>3V3</td>
+    <td>3.3V</td> 
+  </tr>
+  <tr>
+    <td>SCL</td>
+    <td>SCL</td> 
+  </tr>
+  <tr>
+    <td>SDA</td>
+    <td>SDA</td> 
+  </tr>
+  <tr>
+    <td>GND</td>
+    <td>GND</td> 
+  </tr>
+</table>
+
 ### Installing
 You can install the melopero-samm8q module by typing this line in the terminal:
 ```python
