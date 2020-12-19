@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="melopero_samm8q",
-    version="0.0.1",
+    version="0.1.0",
     description="A module to easily access samm8q gps features",
     url="https://github.com/melopero/Melopero_SAM-M8Q",
     author="Melopero",
@@ -16,6 +16,5 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
     ],
-    install_requires = ["melopero_ubx"]
+    install_requires=["melopero_ubx", "smbus2>=0.4"]
 )
-
