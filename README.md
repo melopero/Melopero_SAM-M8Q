@@ -139,9 +139,9 @@ print("We are in {}".format(device.pvt_data["year"]))
 ```
 
 ###### Crafting messages
-To use the `UBX_PROTOCOL` module it must be imported by typing the following line :
+To use the `melopero_ubx` module it must be imported by typing the following line :
 ```python
-import UBX_PROTOCOL as ubx
+import melopero_ubx as ubx
 ```
 
 Then a message can be created with the function:
@@ -154,12 +154,12 @@ If the lenght and the payload are not specified a polling message (with no paylo
 ## Example
 The following example, will write to a file the coordinates and time of the device every 5 seconds for 25 minutes.
 ```python
-import SAM_M8Q
-import ubx
+import melopero_samm8q as mp
+import melopero_ubx as ubx
 import time
 import sys
 
-dev = SAM_M8Q()
+dev = mp.SAM_M8Q()
 dev.ubx_only()
 dev.wait_for_acknowledge(ubx.CFG_CLASS, ubx.CFG_PRT)
 dev.set_message_frequency(ubx.NAV_CLASS, ubx.NAV_PVT, 1)
