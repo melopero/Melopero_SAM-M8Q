@@ -114,6 +114,11 @@ class SAM_M8Q():
 
         return msg
 
+    def poll_message(self, msg_class, msg_id):
+        msg = ubx.compose_message(msg_class, msg_id, 0)
+        self.write_message(msg)
+        return self.wait_for_message(msg_cls=msg_class, msg_id=msg_id)
+
     def wait_for_message(self, time_out_s=1, interval_s=0.01, msg_cls=None, msg_id=None):
         """ waits for a message of a given class and id.\n
         time_out_s :
@@ -157,7 +162,7 @@ class SAM_M8Q():
 
         return ack
 
-    def get_pvt(self, polling=True, time_out_s=1):
+    def get_pvt(self, polling=False, time_out_s=1):
         """updates and returns the pvt_data dictionary that contains the last received
         pvt data.\n
         polling :
