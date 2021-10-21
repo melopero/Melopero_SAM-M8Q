@@ -23,7 +23,7 @@ gps.wait_for_acknowledge(ubx.CFG_CLASS ,ubx.CFG_MSG)
 gps.set_measurement_frequency(50, 2)
 gps.wait_for_acknowledge(ubx.CFG_CLASS, ubx.CFG_RATE)
 
-#take a measurement every 10 seconds for an hour 
+#take a measurement every 0.1 seconds for an hour 
 for i in range(36000):
     info = gps.get_pvt()
     
@@ -37,5 +37,3 @@ for i in range(36000):
     
     else :
         print("Something went wrong and no measurement was taken")
-    
-    time.sleep(10)

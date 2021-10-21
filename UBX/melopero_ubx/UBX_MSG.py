@@ -74,6 +74,9 @@ GNSS_FIX_TYPE = {0 : "no fix", 1 : "dead reckoning only", 2 : "2D-fix",
                  3 : "3D-fix", 4 : "GNSS + dead reckoning combined", 
                  5 : "time only fix"}
 
+def payload_from_message(msg):
+    return msg[6:-2]
+
 def compose_message(msg_class, msg_id, length = 0, payload = None):
     """returns a UBX message with given message class and id (sync chars and 
     checksum included). If a length is specified the message will be populated with
